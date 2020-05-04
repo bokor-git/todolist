@@ -13,7 +13,7 @@ const Button = (props:PropsType) => {
         [styles.success]:props.type==="success",
         [styles.info]:props.type==="info",
     })
-    return <input className={css} type={props.type} value={props.text} />
+    return <input className={css} type="button" value={props.text} />
 };
 
 export default Button;
