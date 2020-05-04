@@ -1,15 +1,15 @@
+import styles from './App.module.css';
+import {Todolist} from './components/Todolist/Todolist';
 import React from 'react';
-import './App.css';
-import {Todolist} from "./Todolist";
 
 function App() {
-  return (
-      <div className="App">
-        <Todolist/>
-        <Todolist/>
-        <Todolist/>
-      </div>
-  );
+    return (
+        <div className={styles.App}>
+            <Todolist/>
+            <Todolist/>
+            <Todolist/>
+        </div>
+    );
 }
 
 export default App;
