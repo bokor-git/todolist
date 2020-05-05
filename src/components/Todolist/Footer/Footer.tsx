@@ -8,3 +8,4 @@ export function Footer() {
         <Button text="Active" type="success"/>
     </div>
 }
+
