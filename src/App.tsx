@@ -1,37 +1,24 @@
-import styles from './App.module.css';
-import {Todolist} from './components/Todolist/Todolist';
 import React from 'react';
-import {v1} from "uuid";
-
-export type TaskType={
-    id:string
-    title:string
-    isDone: boolean
-}
+import './App.css';
+import {Todolist} from './Todolist';
 
 function App() {
 
-    const tasks:Array<TaskType>=[
-        {id:v1(), title:"CSS", isDone:true},
-        {id:v1(), title:"JS", isDone:true},
-        {id:v1(), title:"React", isDone:false}
+    const tasks1 = [
+        { id: 1, title: "HTML&CSS", isDone: true },
+        { id: 2, title: "JS", isDone: true },
+        { id: 3, title: "ReactJS", isDone: false }
     ]
-    const tasks2:Array<TaskType>=[
-        {id:v1(), title:"Car", isDone:true},
-        {id:v1(), title:"Jet", isDone:true},
-        {id:v1(), title:"Bicycle", isDone:false}
-    ]
-    const tasks3:Array<TaskType>=[
-        {id:v1(), title:"Money", isDone:true},
-        {id:v1(), title:"Food", isDone:true},
-        {id:v1(), title:"Health", isDone:false}
+    const tasks2 = [
+        { id: 1, title: "Hello world", isDone: true },
+        { id: 2, title: "I am Happy", isDone: false },
+        { id: 3, title: "Yo", isDone: false }
     ]
 
     return (
-        <div className={styles.App}>
-            <Todolist tasks={tasks} text = "What to learn"/>
-            <Todolist tasks={tasks2}  text = "What to buy" />
-            <Todolist tasks={tasks3} text = "What to forgot" />
+        <div className="App">
+            <Todolist title="What to learn" tasks={tasks1} />
+            <Todolist title="Songs" tasks={tasks2} />
         </div>
     );
 }
