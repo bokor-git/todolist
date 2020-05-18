@@ -8,16 +8,25 @@ export type FilterValuesType = "all" | "active" | "completed";
 function App() {
 
     let [tasks, setTasks] = useState([
-        { id: v1(), title: "HTML&CSS", isDone: true },
-        { id: v1(), title: "JS", isDone: true },
-        { id: v1(), title: "ReactJS", isDone: false },
-        { id: v1(), title: "Rest API", isDone: false },
-        { id: v1(), title: "GraphQL", isDone: false },
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false},
+        {id: v1(), title: "Rest API", isDone: false},
+        {id: v1(), title: "GraphQL", isDone: false},
     ]);
- const addNewTask= (NewTaskTitle: string)=>{
-     let newTask =   { id: v1(), title: NewTaskTitle, isDone: false }
-     setTasks([newTask, ...tasks ])
- }
+    const changeStatus = (taskId: string, taskStatus: boolean) => {
+        const newTask = tasks.find(t => t.id === taskId)
+        if (newTask) {
+            newTask.isDone = taskStatus
+            setTasks([...tasks])
+        }
+
+    }
+    const addNewTask = (NewTaskTitle: string) => {
+        let newTask = {id: v1(), title: NewTaskTitle, isDone: false}
+        setTasks([newTask, ...tasks])
+    }
+
     function removeTask(id: string) {
         let filteredTasks = tasks.filter(t => t.id != id);
         setTasks(filteredTasks);
@@ -44,7 +53,10 @@ function App() {
                       tasks={tasksForTodolist}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
-                      addNewTask={addNewTask}/>
+                      addNewTask={addNewTask}
+                      changeStatus={changeStatus}
+                      filter = {filter}
+            />
         </div>
     );
 }
