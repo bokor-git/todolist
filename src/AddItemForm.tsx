@@ -13,7 +13,7 @@ export function AddItemForm (props:AddItemFormPropsType) {
 
     const addItem = () => {
         if (title.trim() !== "") {
-            props.addItem(title, )
+            props.addItem(title)
             setTitle("");
         } else {
             setError("Title is required");
@@ -27,7 +27,7 @@ export function AddItemForm (props:AddItemFormPropsType) {
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
         if (e.charCode === 13) {
-            props.addItem(title);
+            addItem();
         }
     }
 return    <div>
