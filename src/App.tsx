@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
-import {v1} from "uuid";
+import {v1} from 'uuid';
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -14,25 +14,29 @@ function App() {
         {id: v1(), title: "Rest API", isDone: false},
         {id: v1(), title: "GraphQL", isDone: false},
     ]);
-    const changeStatus = (taskId: string, taskStatus: boolean) => {
-        const newTask = tasks.find(t => t.id === taskId)
-        if (newTask) {
-            newTask.isDone = taskStatus
-            setTasks([...tasks])
-        }
+    let [filter, setFilter] = useState<FilterValuesType>("all");
 
-    }
-    const addNewTask = (NewTaskTitle: string) => {
-        let newTask = {id: v1(), title: NewTaskTitle, isDone: false}
-        setTasks([newTask, ...tasks])
-    }
 
     function removeTask(id: string) {
         let filteredTasks = tasks.filter(t => t.id != id);
         setTasks(filteredTasks);
     }
 
-    let [filter, setFilter] = useState<FilterValuesType>("all");
+    function addTask(title: string) {
+        let task = {id: v1(), title: title, isDone: false};
+        let newTasks = [task, ...tasks];
+        setTasks(newTasks);
+    }
+
+    function changeStatus(taskId: string, isDone: boolean) {
+        let task = tasks.find(t => t.id === taskId);
+        if (task) {
+            task.isDone = isDone;
+        }
+
+        setTasks([...tasks]);
+    }
+
 
     let tasksForTodolist = tasks;
 
@@ -47,15 +51,16 @@ function App() {
         setFilter(value);
     }
 
+
     return (
         <div className="App">
             <Todolist title="What to learn"
                       tasks={tasksForTodolist}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
-                      addNewTask={addNewTask}
-                      changeStatus={changeStatus}
-                      filter = {filter}
+                      addTask={addTask}
+                      changeTaskStatus={changeStatus}
+                      filter={filter}
             />
         </div>
     );

@@ -6,9 +6,6 @@
 .App > div {
   margin-right: 50px;
 }
-.active-filter {
-  background-color: aquamarine;
-}
 
 .error {
   border: red 1px solid;
@@ -17,6 +14,11 @@
 .error-message {
   color: red;
 }
+
+.active-filter {
+  background-color: aquamarine;
+}
+
 .is-done {
   opacity: 0.5;
 }
