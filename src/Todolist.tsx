@@ -7,7 +7,6 @@ import {Delete} from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 
-
 type PropsType = {
     todoListId: string
     title: string
