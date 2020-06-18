@@ -20,6 +20,8 @@ export const userReducer = (state: StateType, action: ActionType):StateType => {
             return {...state, name:action.newName}
         case 'CLEAN-DEFAULT-USER-AGE':
             return  {...state, name: ""}
+        case 'REVERSE-USER-AGE':
+            return {...state, name: state.name.split("").reverse().join("")}
         default:
             throw new Error("I don't understand this type")
     }
