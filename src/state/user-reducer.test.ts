@@ -24,3 +24,9 @@ test('user reducer should change name of user', () => {
     expect(endState.name).toBe(newName);
 });
 
+test('user reducer should change name of user', () => {
+    const startState = { name: 'Dimych', age: 20, childrenCount: 2 };
+    const endState = userReducer(startState, { type: 'CLEAN-DEFAULT-USER-AGE'})
+
+    expect(endState.name).toBe("");
+});

@@ -18,6 +18,8 @@ export const userReducer = (state: StateType, action: ActionType):StateType => {
             return {...state, childrenCount: state.childrenCount+1};
         case 'CHANGE-NAME':
             return {...state, name:action.newName}
+        case 'CLEAN-DEFAULT-USER-AGE':
+            return  {...state, name: ""}
         default:
             throw new Error("I don't understand this type")
     }
