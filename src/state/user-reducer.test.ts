@@ -35,3 +35,9 @@ test('user reducer should reverse name of user', () => {
     const endState = userReducer(startState, { type: 'REVERSE-USER-AGE'})
     expect(endState.name).toBe("hcymiD");
 });
+
+test('user reducer should reset children count', () => {
+    const startState = { name: 'Dimych', age: 20, childrenCount: 2 };
+    const endState = userReducer(startState, { type: 'RESET-USER-CHILDREN-COUNT'})
+    expect(endState.childrenCount).toBe(0);
+});
