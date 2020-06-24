@@ -2,34 +2,11 @@ import {TasksStateType, TodoListType} from "../App";
 import {v1} from "uuid";
 import {AddTodoListActionType, RemoveTodoListActionType} from "./todolist-reducer";
 
-export type removeTask = {
-    type: 'REMOVE-TASK',
-    taskId: string,
-    todolistId: string
-}
-export type addTask = {
-    type: 'ADD-TASK',
-    title: string,
-    todolistId: string
-}
-export type changeTaskStatus = {
-    type: 'CHANGE-TASK-STATUS',
-    taskId: string,
-    isDone: boolean,
-    todolistId: string
-}
-export type changeTaskTitle = {
-    type: 'CHANGE-TASK-TITLE',
-    taskId: string,
-    title: string,
-    todolistId: string
-}
-
-export type addTodolist = {
-    type: 'ADD-TODOLIST',
-    title: string,
-    todolistId: string
-}
+export type removeTask = { type: 'REMOVE-TASK', taskId: string, todolistId: string }
+export type addTask = { type: 'ADD-TASK', title: string, todolistId: string }
+export type changeTaskStatus = { type: 'CHANGE-TASK-STATUS', taskId: string, isDone: boolean, todolistId: string }
+export type changeTaskTitle = { type: 'CHANGE-TASK-TITLE', taskId: string, title: string, todolistId: string }
+export type addTodolist = { type: 'ADD-TODOLIST', title: string, todolistId: string }
 
 export const removeTaskAC = (taskId: string, todolistId: string): removeTask => {
     return {type: 'REMOVE-TASK', taskId, todolistId}
@@ -62,8 +39,8 @@ export type ActionType =
 export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
-            let todoListTasks = state[action.todolistId]
-            state[action.todolistId] = todoListTasks.filter(t => t.id != action.taskId)
+            let filteredTodolist = state[action.todolistId]
+            state[action.todolistId] = filteredTodolist.filter(t => t.id != action.taskId)
             return {...state}
         case "ADD-TASK":
             let task = {id: v1(), title: action.title, isDone: false};
@@ -71,20 +48,11 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
             state[action.todolistId] = [task, ...todoListTasks2];
             return ({...state});
         case 'CHANGE-TASK-STATUS':
-            let todoListTasks3 = state[action.todolistId]
-            let task2 = todoListTasks3.find(t => t.id === action.taskId);
-            if (task2) {
-                task2.isDone = action.isDone;
-            }
+            state[action.todolistId].map(t => t.id === action.taskId ? t.isDone = action.isDone : t.isDone);
             return {...state}
         case "CHANGE-TASK-TITLE":
-            let todoListTasks4 = state[action.todolistId]
-            let task3 = todoListTasks4.find(t => t.id === action.taskId);
-            if (task3) {
-                task3.title = action.title;
-            }
+            state[action.todolistId].map(t => t.id === action.taskId ? t.title = action.title : t.title);
             return {...state}
-
         case "ADD-TODOLIST":
             return {...state, [action.todolistId]: []}
         case "REMOVE-TODOLIST":

@@ -24,7 +24,6 @@ test('correct task should be deleted from correct array', () => {
     };
 
     const action = removeTaskAC("2", "todolistId2");
-
     const endState = tasksReducer(startState, action)
 
     expect(endState["todolistId1"].length).toBe(3);
@@ -47,7 +46,6 @@ test('correct task should be added to correct array', () => {
     };
 
     const action = addTaskAC("juce", "todolistId2");
-
     const endState = tasksReducer(startState, action)
 
     expect(endState["todolistId1"].length).toBe(3);
@@ -117,7 +115,6 @@ test('new array should be added when new todolist is added', () => {
     };
 
     const action = AddTodolistAC("new todolist");
-
     const endState = tasksReducer(startState, action)
 
 
@@ -145,9 +142,7 @@ test('propertry with todolistId should be deleted', () => {
     };
 
     const action = RemoveTodolistAC("todolistId2");
-
     const endState = tasksReducer(startState, action)
-
 
     const keys = Object.keys(endState);
 
