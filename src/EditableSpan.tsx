@@ -7,7 +7,7 @@ type EditableSpanPropsType = {
 
 }
 
-export function EditableSpan(props: EditableSpanPropsType) {
+export const EditableSpan = React.memo((props: EditableSpanPropsType)=> {
 console.log("Span is render")
     let [title, setTitle] = useState(props.value)
     let [editMode, setEditMode] = useState<boolean>(false)
@@ -28,4 +28,4 @@ console.log("Span is render")
         : <span onDoubleClick={activeEditMode}>{props.value}</span>} </>
 
 
-}
+})
