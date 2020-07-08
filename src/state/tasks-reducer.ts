@@ -24,7 +24,6 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
 }
 
 
-
 export const AddTodolistAC = (title: string): addTodolist => {
     return {type: 'ADD-TODOLIST', title, todolistId: v1()}
 }
@@ -39,7 +38,7 @@ export type ActionType =
     | RemoveTodoListActionType
 
 
-const initialState:TasksStateType = {
+const initialState: TasksStateType = {
     [todoListId1]: [
         {id: v1(), title: "HTML&CSS", isDone: true},
         {id: v1(), title: "JS", isDone: true},
@@ -52,7 +51,7 @@ const initialState:TasksStateType = {
         {id: v1(), title: "React Book", isDone: false},
     ]
 }
-export const tasksReducer = (state: TasksStateType=initialState, action: ActionType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
             let filteredTodolist = state[action.todolistId]
@@ -64,10 +63,14 @@ export const tasksReducer = (state: TasksStateType=initialState, action: ActionT
             state[action.todolistId] = [task, ...todoListTasks2];
             return ({...state});
         case 'CHANGE-TASK-STATUS':
-            state[action.todolistId].map(t => t.id === action.taskId ? t.isDone = action.isDone : t.isDone);
+            let todolistTasks = state[action.todolistId]
+            let newTaskArray = todolistTasks.map(t => t.id === action.taskId ? {...t, isDone: action.isDone} : t);
+            state[action.todolistId] = newTaskArray
             return {...state}
         case "CHANGE-TASK-TITLE":
-            state[action.todolistId].map(t => t.id === action.taskId ? t.title = action.title : t.title);
+            let todolistTasks2 = state[action.todolistId]
+            let newTaskArray2 = todolistTasks2.map(t => t.id === action.taskId ? {...t, title: action.title} : t)
+            state[action.todolistId] = newTaskArray2
             return {...state}
         case "ADD-TODOLIST":
             return {...state, [action.todolistId]: []}
