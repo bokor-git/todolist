@@ -1,5 +1,4 @@
-
-export type StateType = {
+type StateType = {
     age: number
     childrenCount: number
     name: string
@@ -10,21 +9,23 @@ type ActionType = {
 }
 
 
-export const userReducer = (state: StateType, action: ActionType):StateType => {
+export const userReducer = (state: StateType, action: ActionType): StateType => {
     switch (action.type) {
         case 'INCREMENT-AGE':
-            return {...state, age: state.age+1};
+            let newState = {...state};
+            newState.age = state.age + 1;
+            return newState;
         case 'INCREMENT-CHILDREN-COUNT':
-            return {...state, childrenCount: state.childrenCount+1};
+            return {
+                ...state,
+                childrenCount: state.childrenCount + 1
+            }
         case 'CHANGE-NAME':
-            return {...state, name:action.newName}
-        case 'CLEAN-DEFAULT-USER-AGE':
-            return  {...state, name: ""}
-        case 'REVERSE-USER-AGE':
-            return {...state, name: state.name.split("").reverse().join("")}
-        case 'RESET-USER-CHILDREN-COUNT':
-            return {...state, childrenCount: 0}
+            return {
+                ...state,
+                name: action.newName
+            }
         default:
-            throw new Error("I don't understand this type")
+            throw new Error("I don't understand this action type")
     }
 }
