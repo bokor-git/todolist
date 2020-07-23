@@ -1,27 +1,32 @@
-import React from "react"
-import {action} from '@storybook/addon-actions';
-import {Task} from "./Task";
+import React from 'react'
+import {action} from '@storybook/addon-actions'
+import {Task} from './Task'
 
 export default {
-    title: 'Task component',
-    component: Task,
+    title: 'Task Stories',
+    component: Task
 }
 
-const changeTaskStatusCallback = action("Status changed")
-const changeTaskTitleCallback = action("Title changed")
-const removeTaskCallback = action("Task removed")
+const removeCallback = action('Remove Button inside Task clicked');
+const changeStatusCallback = action('Status changed inside Task');
+const changeTitleCallback = action('Title changed inside Task');
 
-export const TaskBaseExample = () => {
-    return <>
-        <Task task={{id: "1", title: "First task", isDone: true}}
-              changeTaskStatus={changeTaskStatusCallback}
-              changeTaskTitle={changeTaskTitleCallback}
-              removeTask={removeTaskCallback}
-              todolistId={"todolistId1"}/>
-        <Task task={{id: "2", title: "Second task", isDone: false}}
-              changeTaskStatus={changeTaskStatusCallback}
-              changeTaskTitle={changeTaskTitleCallback}
-              removeTask={removeTaskCallback}
-              todolistId={"todolistId2"}/>
-    </>
+export const TaskBaseExample = (props: any) => {
+    return (
+        <div>
+            <Task
+                task={{id: '1', isDone: true, title: "CSS"}}
+                removeTask={removeCallback}
+                changeTaskTitle={changeTitleCallback}
+                changeTaskStatus={changeStatusCallback}
+                todolistId={"todolistId1"}
+            />
+            <Task
+                task={{id: '2', isDone: false, title: "JS"}}
+                removeTask={removeCallback}
+                changeTaskTitle={changeTitleCallback}
+                changeTaskStatus={changeStatusCallback}
+                todolistId={"todolistId2"}
+            />
+        </div>)
 }
