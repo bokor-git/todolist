@@ -159,4 +159,41 @@ export const updateTaskStatusTC = (taskId: string, todolistId: string, status: T
     }
 }
 
+export const changeTaskTitleTC = (taskId: string, title: string, todolistId: string) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        const task = getState().tasks[todolistId].find(t => t.id === taskId)
+        if (task) {
+            todolistsAPI.updateTask(todolistId, taskId, {
+                title: title,
+                startDate: task.startDate,
+                priority: task.priority,
+                description: task.description,
+                deadline: task.deadline,
+                status: task.status
+            }).then(() => {
+                const action = changeTaskTitleAC(taskId, title, todolistId)
+                dispatch(action)
+            })
+        }
+    }
+}
 
+export const addTaskTC = (title: string, todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.createTask(todolistId, title)
+            .then(() => {
+                const action = addTaskAC(title, todolistId)
+                dispatch(action)
+            })
+    }
+}
+
+export const removeTaskTC = (taskId: string, todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.deleteTask(todolistId, taskId)
+            .then(() => {
+                const action = removeTaskAC(taskId, todolistId)
+                dispatch(action)
+            })
+    }
+}
