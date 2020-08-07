@@ -1,5 +1,5 @@
 import {
-    addTodolistAC,
+    addTodolistAC, changeTodolistEntityStatusAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC, FilterValuesType,
     removeTodolistAC, setTodolistsAC, TodolistDomainType,
@@ -16,8 +16,8 @@ beforeEach(() => {
     todolistId1 = v1()
     todolistId2 = v1()
     startState = [
-        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
-        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: '', order: 0}
+        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '',entityStatus:"idle", order: 0},
+        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: '',entityStatus:"idle", order: 0}
     ]
 })
 
@@ -72,6 +72,17 @@ test('todolists should be added', () => {
     const endState = todolistsReducer([], action)
 
     expect(endState.length).toBe(2)
+})
+
+
+test('correct entity status of todolist should be changed', () => {
+
+    const action = changeTodolistEntityStatusAC(todolistId2, "loading")
+
+    const endState = todolistsReducer(startState, action)
+
+    expect(endState[0].filter).toBe('all')
+    expect(endState[1].entityStatus).toBe("loading")
 })
 
 
