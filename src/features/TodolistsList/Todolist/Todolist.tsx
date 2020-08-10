@@ -10,7 +10,7 @@ import {useDispatch} from 'react-redux'
 import {fetchTasksTC} from '../tasks-reducer'
 
 type PropsType = {
-    todolist:TodolistDomainType
+    todolist: TodolistDomainType
     tasks: Array<TaskType>
     changeFilter: (value: FilterValuesType, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
@@ -19,11 +19,11 @@ type PropsType = {
     removeTask: (taskId: string, todolistId: string) => void
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
-    demo?:boolean
+    demo?: boolean
 
 }
 
-export const Todolist = React.memo(function ({demo=false,...props}: PropsType) {
+export const Todolist = React.memo(function ({demo = false, ...props}: PropsType) {
     console.log('Todolist called')
     const dispatch = useDispatch()
     useEffect(() => {
@@ -60,15 +60,19 @@ export const Todolist = React.memo(function ({demo=false,...props}: PropsType) {
     }
 
     return <div>
-        <h3><EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus==="loading"}>
+        <h3><EditableSpan disabled={props.todolist.entityStatus === "loading"}
+                          value={props.todolist.title}
+                          onChange={changeTodolistTitle}/>
+            <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === "loading"}>
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus==="loading"}/>
+        <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === "loading"}/>
         <div>
             {
-                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}
+                tasksForTodolist.map(t => <Task key={t.id} task={t}
+                                                todolistId={props.todolist.id}
+                                                disabled={props.todolist.entityStatus === "loading"}
                                                 removeTask={props.removeTask}
                                                 changeTaskTitle={props.changeTaskTitle}
                                                 changeTaskStatus={props.changeTaskStatus}

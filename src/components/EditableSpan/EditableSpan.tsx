@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import {TextField} from '@material-ui/core';
 
 type EditableSpanPropsType = {
+    disabled?:boolean
     value: string
     onChange: (newValue: string) => void
 }
@@ -12,8 +13,9 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
     let [title, setTitle] = useState(props.value);
 
     const activateEditMode = () => {
+        if (props.disabled!==true){
         setEditMode(true);
-        setTitle(props.value);
+        setTitle(props.value);}
     }
     const activateViewMode = () => {
         setEditMode(false);
