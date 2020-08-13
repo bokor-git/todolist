@@ -20,15 +20,15 @@ type PropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     demo?: boolean
-
 }
 
 export const Todolist = React.memo(function ({demo = false, ...props}: PropsType) {
     console.log('Todolist called')
+
     const dispatch = useDispatch()
     useEffect(() => {
         if (demo) {
-            return;
+            return
         }
         const thunk = fetchTasksTC(props.todolist.id)
         dispatch(thunk)
@@ -60,19 +60,15 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
     }
 
     return <div>
-        <h3><EditableSpan disabled={props.todolist.entityStatus === "loading"}
-                          value={props.todolist.title}
-                          onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === "loading"}>
+        <h3><EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
+            <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === "loading"}/>
+        <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
         <div>
             {
-                tasksForTodolist.map(t => <Task key={t.id} task={t}
-                                                todolistId={props.todolist.id}
-                                                disabled={props.todolist.entityStatus === "loading"}
+                tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}
                                                 removeTask={props.removeTask}
                                                 changeTaskTitle={props.changeTaskTitle}
                                                 changeTaskStatus={props.changeTaskStatus}
